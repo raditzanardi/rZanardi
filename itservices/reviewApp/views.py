@@ -11,4 +11,8 @@ def contact(request):
     return render(request, 'reviewApp/contact.html', {'title': 'Contact Us'})
 
 def products(request):
-    return render(request, 'reviewApp/products.html')
+    all_products = {
+		'products': Product.objects.all()
+	}
+	
+    return render(request, 'reviewApp/products.html', all_products)
