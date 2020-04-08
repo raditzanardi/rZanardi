@@ -1,0 +1,28 @@
+{% extends "reviewApp/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+	<div class="content-section">
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Review App - Login</legend>
+				{{ form|crispy }}
+			</fieldset>
+
+			<div class="form-group">
+				<button class="btn btn-outline-success" type="submit">Login</button>				
+			</div>
+		</form><hr>
+
+		<div class="row">
+			<div class="col-md-6">
+				<p>Don't have an account?</p>
+				<a class="btn btn-danger" href="{% url 'register' %}">Register</a>
+			</div>
+		</div>
+
+		
+	</div>
+
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends "reviewApp/base.html" %}
+{% block content %}
+	
+	<div class="alert alert-danger" role="alert">
+		You are now logged out
+	</div>
+
+	<div class="border-top pt-3">
+		<small class="text-muted">
+			<a href="{% url 'login' %}">Login</a>
+		</small>	
+	</div>
+
+{% endblock content %}

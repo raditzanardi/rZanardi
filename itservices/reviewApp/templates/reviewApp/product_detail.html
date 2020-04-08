@@ -1,0 +1,24 @@
+{% extends "reviewApp/base.html" %}
+{% block content %}
+	
+	<div class="col-md-6" style="float: left;">
+		<span>
+			<img class="rounded-square article-img" src="{{object.productphoto.url}}" style="min-width: 150px; min-height: 150px;max-width: 150px; max-height: 150px">
+			<h1 class="article-title">{{ object.brand }} {{ object.name }}</h1>
+			<h4 class="mr-2">Cost: £{{ object.cost }}</h4>
+			<h4 class="mr-2">Category: {{ object.category }}</h4>
+			<h4 class="mr-2">Release Date: {{ object.releasedate }}</h4>
+			<p class="article-content">{{ object.description }}</p>
+		</span>
+		<span>
+			
+			<a class="btn btn-primary" href="{% url 'review-create' object.id %}">Create Review</a> 
+		</span>
+	</div>
+	<div class="col-md-6" style="float: right;">
+		{% for object in reviews %}
+			<p>test</p>
+		{% endfor %}
+	</div>
+
+{% endblock content %}
