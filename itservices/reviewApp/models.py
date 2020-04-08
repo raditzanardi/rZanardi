@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from users.models import Profile
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.urls import reverse
 # Create your models here.
 class Product(models.Model):
 	name = models.CharField(max_length=100)
