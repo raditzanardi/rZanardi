@@ -38,3 +38,21 @@ def form_valid(self, form):
     form.instance.author = self.request.user
     return super().form_valid(form)
 
+class ReviewListView(TemplateView):
+	template_name = 'reviewApp/review.html'
+	def get_context_data(self, **kwargs):
+		context = super(ReviewListView, self).get_context_data(**kwargs)
+		context['Reviews'] = Review.objects.all().order_by('-postdate')
+		return context
+
+class ReviewCreateView(LoginRequiredMixin, CreateView):
+	model = Review
+	fields = ['rating', 'reviewtext']
+	def form_valid(self, form, **kwargs):
+		form.instance.product_id = self.kwargs['pk']
+		form.instance.author = self.request.user
+		form.instance.profile = self.request.user.profile
+		return super().form_valid(form)
+
+class ReviewDetailView(DetailView):
+	model = Review
