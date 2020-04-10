@@ -15,7 +15,7 @@
 			    </div>
 			    <h2><a class="article-title" href="{% url 'review-detail' pk=review.id %}">{{ review.product.brand }} - {{ review.product.name }} </a></h2>
 		    	<span class="text-concat">
-		    		<p class="article-content" style="word-wrap: break-word;">{{ review.reviewtext }}</p>
+		    		<p class="article-content" style="word-wrap: break-word;">{{ review.reviewtext|truncatewords:12}}</p>
 		    	</span>
 			  </div>
 			</article>

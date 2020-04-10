@@ -1,63 +1,14 @@
 {% extends "reviewApp/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 
-	<h1>ReviewApp - Contact Us</h1>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8">
-				<form action="{% url 'reviewApp-home' %}" method="POST">
-					{% csrf_token %}
-					<div class="row">
-						<div class="col-md-8">
-							<div class="form-group">
-								<label for="Name">Name</label>
-								<input type="text" name="Name" placeholder="Enter Your Name" class="form-control" required="true">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-8">
-							<div class="form-group">
-								<label for="Email">Email Address</label>
-								<input type="email" name="Email" placeholder="Enter Your Email Address" class="form-control" required="true">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-8">
-							<div class="form-group">
-								<label for="Subject">Subject</label>
-								<input type="text" name="Subject" placeholder="Enter The Subject Of Your Message " class="form-control" required="true">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-8">
-							<div class="form-group">
-								<label for="Message">Message</label>
-								<textarea name="Message" placeholder="Enter Your Message" class="form-control" required="true" rows="5" cols="50"></textarea>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-8">
-							<div class="form-group">
-								<button class="btn btn-success" type="submit">Submit</button>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="col-md-4">
-				<div class="content-section">
-					<h3>Lorem Ipsum</h3>
-					<p class='text-muted'>
-						Lorem ipsum dolor sit amet, iudico docendi inciderint per eu, ea vis scripta senserit periculis. Lorem ipsum dolor sit amet, iudico docendi inciderint per eu, ea vis scripta senserit periculis.
-					</p>
-				</div>
-			</div>
+<h1>ReviewApp - Contact Us</h1>
+	<form method="post">
+		{% csrf_token %}
+		{{ form|crispy }}
+		<div class="form-actions">
+		  <button type="submit">Send</button>
 		</div>
-	</div>
-	</div>
+	</form>
 
 {% endblock content %}
