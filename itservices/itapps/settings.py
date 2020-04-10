@@ -25,6 +25,13 @@ SECRET_KEY = 'oh8dz=n#x)!ai+4lg9xp))-*wb6u3b+n^15*404z95a-4fm2fn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+EMAIL_HOST = 'smtp.zoho.eu'
+EMAIL_HOST_USER = 'radit2639@zohomail.eu'
+EMAIL_HOST_PASSWORD = 'GZz0LyWV'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 ALLOWED_HOSTS = []
 
 
@@ -126,4 +133,3 @@ MEDIA_URL = '/media/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL= 'reviewApp-home'
 LOGIN_URL = 'login'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
