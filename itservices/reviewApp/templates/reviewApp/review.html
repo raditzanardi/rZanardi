@@ -8,7 +8,7 @@
 			<div class="content-section"><a href="{% url 'review-detail' pk=review.id %}" title="Click for Detailed View">
 				<div class="row">
 					<div class="col-md-2" style="float: left;">
-						<img class="rounded-circle article-img" src="{{ review.profile.profilephoto.url }}" style="min-width: 80px; min-height: 80px;max-width: 80px; max-height: 80px">
+						<img class="rounded-circle article-img" src="{{ review.profile.image.url }}" style="min-width: 80px; min-height: 80px;max-width: 80px; max-height: 80px">
 					</div>
 					<div class="col-md-5" style="float: right;">
 						<h4 class="article-title">{{ review.product.brand }} {{ review.product.name }} - {{ review.product.category }}</h4>

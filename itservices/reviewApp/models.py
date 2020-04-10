@@ -12,7 +12,7 @@ class Product(models.Model):
 	category = models.CharField(max_length=100)
 	releasedate = models.DateField()
 	description = models.TextField()
-	productphoto = models.ImageField(default='products/default_product.jpg', upload_to='products')
+	productphoto = models.ImageField(default='products/product_default.jpg', upload_to='products')
 
 	def __str__(self):
 		return self.name
