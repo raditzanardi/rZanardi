@@ -32,10 +32,10 @@
 			</span>
 		</div>
 			{% if object.author == user %}
-	    	{% comment %}<div style="margin: 0 auto;">	
+	    	<div style="margin: 0 auto;">	
 	    		<a class="btn btn-warning" href="{% url 'review-update' pk=object.id %}">Update</a>&nbsp;
 	    		<a class="btn btn-danger" href="{% url 'review-delete' pk=object.id %}">Delete</a>
-	    	</div> {% endcomment %}
+	    	</div> 
 	    {% endif %}
 	</div>
 </div>

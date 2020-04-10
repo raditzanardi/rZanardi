@@ -56,3 +56,24 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
 
 class ReviewDetailView(DetailView):
 	model = Review
+
+class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+	model = Review
+	fields = ['rating', 'reviewtext']
+	def form_valid(self, form, **kwargs):
+		form.instance.author = self.request.user
+		return super().form_valid(form)
+	def test_func(self):
+		review = self.get_object()
+		if self.request.user == review.author:
+			return True
+		return False
+
+class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+	model = Review
+	success_url = '/product'
+	def test_func(self):
+		review = self.get_object()
+		if self.request.user == review.author:
+			return True
+		return False
