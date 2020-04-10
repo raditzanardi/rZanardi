@@ -1,28 +1,48 @@
 {% extends "reviewApp/base.html" %}
 {% block content %}
 	
-	<h1>Reviews</h1>
+	<h1>ReviewApp - Reviews</h1>
 
-	<div class="container">
-		{% for review in Reviews %}
-			<div class="content-section"><a href="{% url 'review-detail' pk=review.id %}" title="Click for Detailed View">
-				<div class="row">
-					<div class="col-md-2" style="float: left;">
-						<img class="rounded-circle article-img" src="{{ review.profile.image.url }}" style="min-width: 80px; min-height: 80px;max-width: 80px; max-height: 80px">
-					</div>
-					<div class="col-md-5" style="float: right;">
-						<h4 class="article-title">{{ review.product.brand }} {{ review.product.name }} - {{ review.product.category }}</h4>
-						<h4 class="article-title">£{{ review.product.cost }}</h4>
-						<p class="article-content">Description: {{ review.product.description }}</p>
-					</div>
-					<div class="col-md-5">
-						<h4 class="mr-2">Author: {{ review.author }}</h4>
-						<h4 class="mr-2">Rating: {{ review.rating }}/5</h4>
-						<p class="article-content">Review: {{ review.reviewtext }}</p>
-					</div>
-				</div>
-			</a></div>
+	<div class="row">
+		<div class="col-md-8">
+		{% for review in reviews %}
+			<article class="media content-section" style="max-height: 220px;">
+	  		<img class="rounded-square article-img" src="{{review.profile.image.url}}" style="min-width: 150px; min-height: 150px;max-width: 150px; max-height: 150px">
+			  <div class="media-body">
+			    <div class="article-metadata">
+			      <span class="mr-2">{{ review.product }} - {{ review.author }}</span>
+			      <small class="text-muted">{{ review.postdate }}</small>
+			    </div>
+			    <h2><a class="article-title" href="{% url 'review-detail' pk=review.id %}">{{ review.product.brand }} - {{ review.product.name }} </a></h2>
+		    	<span class="text-concat">
+		    		<p class="article-content" style="word-wrap: break-word;">{{ review.reviewtext }}</p>
+		    	</span>
+			  </div>
+			</article>
 		{% endfor %}
+		</div>
 	</div>
+
+	{% if is_paginated %}
+		{% if page_obj.has_previous %}
+			<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		{% endif %}
+
+		{% for num in page_obj.paginator.page_range %}
+			{% if page_obj.number == num %}
+				<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }} </a>
+			{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+				<a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+			{% endif %}
+		{% endfor %}
+
+		{% if page_obj.has_next %}
+			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+			<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+		{% endif %}
+	{% endif %}
+
+
 
 {% endblock content %}

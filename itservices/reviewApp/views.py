@@ -23,10 +23,11 @@ def products(request):
     return render(request, 'reviewApp/products.html', all_products)
 
 class ProductListView(ListView):
-    model = Product
-    template_name = 'reviewApp/product.html'
-    context_object_name = 'products'
-    ordering = ['-releasedate']
+	model = Product
+	template_name = 'reviewApp/product.html'
+	context_object_name = 'products'
+	ordering = ['-releasedate']
+	paginate_by = 4
 
 class ProductDetailView(DetailView):
     model = Product
@@ -38,12 +39,13 @@ def form_valid(self, form):
     form.instance.author = self.request.user
     return super().form_valid(form)
 
-class ReviewListView(TemplateView):
+class ReviewListView(ListView):
+	model = Review 
 	template_name = 'reviewApp/review.html'
-	def get_context_data(self, **kwargs):
-		context = super(ReviewListView, self).get_context_data(**kwargs)
-		context['Reviews'] = Review.objects.all().order_by('-postdate')
-		return context
+	context_object_name = 'reviews'
+	ordering = ['-postdate']
+	paginate_by = 4
+		
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
 	model = Review
