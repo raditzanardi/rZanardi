@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.contrib import messages
+from django.views.generic import TemplateView
 # from django.http import HttpResponse
 # Create your views here.
 def home(request):
@@ -47,8 +48,17 @@ class ProductListView(ListView):
 	ordering = ['-releasedate']
 	paginate_by = 4
 
-class ProductDetailView(DetailView):
-    model = Product
+class ProductDetailView(LoginRequiredMixin, TemplateView):
+	
+	template_name = 'reviewApp/product_detail.html'
+
+	def get_context_data(self, **kwargs):
+		prod = self.kwargs['pk']
+		context = super(ProductDetailView, self).get_context_data(**kwargs)
+		context['Products'] = Product.objects.filter(id=prod)
+		context['Reviews'] = Review.objects.filter(product=prod)
+		context['Action'] = Review.objects.filter(author=self.request.user, product=prod)
+		return context
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
 	model = Product

@@ -1,24 +1,57 @@
 {% extends "reviewApp/base.html" %}
 {% block content %}
-	
-	<div class="col-md-6" style="float: left;">
-		<span>
-			<img class="rounded-square article-img" src="{{object.productphoto.url}}" style="min-width: 150px; min-height: 150px;max-width: 150px; max-height: 150px">
-			<h1 class="article-title">{{ object.brand }} {{ object.name }}</h1>
-			<h4 class="mr-2">Cost: £{{ object.cost }}</h4>
-			<h4 class="mr-2">Category: {{ object.category }}</h4>
-			<h4 class="mr-2">Release Date: {{ object.releasedate }}</h4>
-			<p class="article-content">{{ object.description }}</p>
-		</span>
-		<span>
-			
-			<a class="btn btn-primary" href="{% url 'review-create' object.id %}">Create Review</a> 
-		</span>
-	</div>
-	<div class="col-md-6" style="float: right;">
-		{% for object in reviews %}
-			<p>test</p>
-		{% endfor %}
+	<div class="row">
+		<div class="col-md-1">
+			{% for prod in Products %}
+			<span>
+				<img class="rounded-square article-img" src="{{prod.productphoto.url}}" id="productImage">
+			</span>
+		</div>
+		<div class="col-md-4" align="center">
+			<div class="content-section" id="detailsCard">
+				<h3 class="article-title">Name: {{ prod.name }}</h3>
+				<h4 class="mr-2">Cost: £{{ prod.cost }}</h4>
+				<h4 class="mr-2">Category: {{ prod.category }}</h4>
+				<h4 class="mr-2">Release Date: {{ prod.releasedate|date:"d/m/Y" }}</h4>
+				<h4 class="mr-2">Description: </h4>
+				<p class="article-content">{{ prod.description }}</p>
+				
+			</div>
+			<span>
+				{% if Action.count == 0 %}
+					<a class="btn btn-primary" href="{% url 'review-create' pk=prod.id %}">Create Review</a>
+				{% endif %}
+			</span>
+			{% endfor %}
+		</div>
+
+		<div class="col-md-4" style="float: right;">
+			{% for rev in Reviews %}
+			<div class="card" style="width: 18rem;">
+				<div class="row" style="padding-top: 5%;">
+					<div class="col-md-3" style="float: right; margin-left: 1%;">
+						<img class="card-img-top rounded-circle" src="{{ rev.profile.image.url }}" id="profileImage">
+					</div>
+					<div class="col-md-8" align="center">
+						<h5 class="card-title">{{ rev.rating }}/5</h5>
+			    	<h6 class="card-subtitle mb-2">Reviewed by {{ rev.author }}</h6>
+					</div>
+				</div>
+			  <div class="card-body">
+			    <p class="card-text">{{ rev.reviewtext }}</p>
+			    {% if rev.author == user %}
+			    	<div>	
+			    		<a class="btn btn-warning btn-sm" href="{% url 'review-update' pk=rev.id %}">Update</a>&nbsp;
+			    		<a class="btn btn-danger btn-sm" href="{% url 'review-delete' pk=rev.id %}">Delete</a>
+			    	</div>
+			    {% endif %}
+			  </div>
+			  <span class="card-footer">
+			  	<small class="text-muted">Reviewed On {{ rev.postdate|date:"d/m/Y H:iA" }}</small>
+			  </span>
+			</div><hr>
+			{% endfor %}
+		</div>
 	</div>
 
 {% endblock content %}
