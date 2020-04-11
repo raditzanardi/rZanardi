@@ -41,12 +41,14 @@
                      <a class="nav-item nav-link" href="{% url 'reviewApp-product' %}">Products</a>
                      <a class="nav-item nav-link" href="{% url 'reviewApp-review' %}">Reviews</a>
                       <a class="nav-item nav-link" href="{% url 'reviewApp-contact' %}">Contact Us</a>
-          
+                      {% if user.is_superuser %}
+              <a class="nav-item nav-link" href="{% url 'product-create'%}"><i class="fas fa-plus-square"></i> Add Product</a>
+              {% endif %}
+ 
           
                   </div>
           
-                  <!-- Navbar Right Side -->
-          
+                  
                   <div class="navbar-nav">
           
                     {% if user.is_authenticated %}
@@ -90,11 +92,11 @@
     
                 <li class="list-group-item list-group-item-light">Latest Reviews</li>
     
-                <li class="list-group-item list-group-item-light">IT Policies</li>
+                <li class="list-group-item list-group-item-light">Technology News</li>
     
-                <li class="list-group-item list-group-item-light">IT Regulations</li>
+                <li class="list-group-item list-group-item-light">Entertainment</li>
     
-                <li class="list-group-item list-group-item-light">Upcoming Events</li>
+                <li class="list-group-item list-group-item-light">Socials</li>
     
               </ul>
     
