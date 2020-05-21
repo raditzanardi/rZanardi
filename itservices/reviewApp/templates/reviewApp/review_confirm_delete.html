@@ -1,0 +1,52 @@
+{% extends "reviewApp/base.html" %}
+{% block content %}
+
+	<div class="container">
+
+		<fieldset class="form-group">
+			<legend class="border-bottom mb-4">Review App -  Delete Review</legend>
+		</fieldset>
+
+		<div class="row">
+			<div class="col-md-6" style="float: left;">
+				<div class="card" style="width: 18rem;">
+					<div class="row" style="padding-top: 5%;">
+						<div class="col-md-3" style="float: left; margin-left: 1%;">
+							<img class="card-img-top rounded-circle" src="{{ object.profile.profilephoto.url }}" id="revConfDelProfImage">
+						</div>
+						<div class="col-md-8" style="float: right;">
+							<h5 class="card-title">{{ object.rating }}/5</h5>
+				    	<h6 class="card-subtitle mb-2">Reviewed by {{ object.author }}</h6>
+						</div>
+					</div>
+				  <div class="card-body">
+				    <p class="card-text">{{ object.reviewtext }}</p>
+				  </div>
+				  <span class="card-footer">
+				  	<small class="text-muted">Posted On {{ object.postdate|date:"d/m/Y H:iA" }}</small>
+				  </span>
+				</div><br>
+				<form method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="form-group">
+						<button class="btn btn-danger" type="submit">Delete</button>
+						<a class="btn btn-warning" href="{% url 'review-detail' object.id %}">Cancel</a>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-6" style="float: right;">
+				<div class="content-section">
+					<span>
+						<img class="rounded-square article-img" src="{{object.product.productphoto.url}}" id="revConfDelProdImage">
+					</span>
+					<h3 class="article-title">Name: {{ object.product.brand }} {{ object.product.name }}</h3>
+					<h4 class="mr-2">Cost: £{{ object.product.cost }}</h4>
+					<h4 class="mr-2">Category: {{ object.product.category }}</h4>
+					<h4 class="mr-2">Release Date: {{ object.product.releasedate|date:"d/m/Y" }}</h4>
+					<p class="article-content">{{ object.product.description }}</p>
+				</div>
+			</div><hr>
+		</div>
+	</div>
+
+{% endblock content %}
